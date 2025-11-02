@@ -10,7 +10,8 @@ Game::Game(int screenWidth, int screenHeight)
     : screenWidth(screenWidth),
       screenHeight(screenHeight),
       paddle({static_cast<float>(screenWidth) / 2 - 50.0f, static_cast<float>(screenHeight) - 30.0f}),
-      ball({static_cast<float>(screenWidth) / 2, static_cast<float>(screenHeight) / 2}) {}
+      ball({static_cast<float>(screenWidth) / 2, static_cast<float>(screenHeight) / 2}) {
+}
 
 int Game::Run() {
     InitWindow(screenWidth, screenHeight, "raylib-test");

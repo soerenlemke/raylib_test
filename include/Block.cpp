@@ -4,10 +4,8 @@
 
 #include "Block.h"
 
-Block::Block(Vector2 pos, int w, int h) {
-    this->position = pos;
-    this->width = w;
-    this->height = h;
+Block::Block(Vector2 pos, int w, int h)
+    : position(pos), width(w), height(h) {
 }
 
 void Block::Draw(Color color) const {
