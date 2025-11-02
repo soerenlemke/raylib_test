@@ -19,6 +19,8 @@ int Game::Run() {
     InitWindow(screenWidth, screenHeight, "raylib-test");
     SetTargetFPS(120);
 
+    BuildBlocks(5, 10, 70, 25, 5);
+
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
         Update(dt);
@@ -73,33 +75,38 @@ void Game::Update(float dt) {
     }
 }
 
-void Game::Draw() {
+void Game::Draw() const {
     ClearBackground(RAYWHITE);
     DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 10, 10, 20, DARKGRAY);
 
     ball.Draw(RED);
     paddle.Draw(GRAY);
 
-    DrawBlocks(5, 10, 70, 25, 5);
+    DrawBlocks();
 }
 
-void Game::DrawBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing) const {
+void Game::BuildBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing) {
+    blocks.clear();
     const auto totalWidth = static_cast<float>(cols * blockWidth + (cols - 1) * spacing);
     const auto startX = (static_cast<float>(screenWidth) - totalWidth) * 0.5f;
+    constexpr auto startY = 50.0f;
 
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
-            constexpr auto startY = 50.0f;
-
-            Block block(
-                {
+            blocks.emplace_back(
+                Vector2{
                     startX + static_cast<float>(col * (blockWidth + spacing)),
                     startY + static_cast<float>(row * (blockHeight + spacing))
                 },
                 blockWidth,
                 blockHeight
             );
-            block.Draw(BLUE);
         }
+    }
+}
+
+void Game::DrawBlocks() const {
+    for (const auto &block: blocks) {
+        if (block.IsAlive()) block.Draw(BLUE);
     }
 }

@@ -4,7 +4,10 @@
 
 #ifndef RAYLIB_TEST_GAME_H
 #define RAYLIB_TEST_GAME_H
+#include <vector>
+
 #include "Ball.h"
+#include "Block.h"
 #include "Paddle.h"
 
 
@@ -17,14 +20,17 @@ public:
 private:
     void Update(float dt);
 
-    void Draw();
+    void Draw() const;
 
-    void DrawBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing) const;
+    void BuildBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing);
+
+    void DrawBlocks() const;
 
     int screenWidth;
     int screenHeight;
     Paddle paddle;
     Ball ball;
+    std::vector<Block> blocks;
 };
 
 
