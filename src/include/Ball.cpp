@@ -2,7 +2,7 @@
 // Created by soeren on 02.11.25.
 //
 
-#include "Ball.h"
+#include "../include/Ball.h"
 
 Ball::Ball(Vector2 pos, float radius, Vector2 vel)
     : position(pos), velocity(vel), radius(radius) {

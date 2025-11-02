@@ -2,7 +2,7 @@
 // Created by soeren on 02.11.25.
 //
 
-#include "Paddle.h"
+#include "../include/Paddle.h"
 
 Paddle::Paddle(Vector2 pos, int w, int h, float speed)
     : position(pos), width(w), height(h), speed(speed) {

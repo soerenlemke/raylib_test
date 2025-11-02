@@ -2,7 +2,7 @@
 // Created by soeren on 02.11.25.
 //
 
-#include "Game.h"
+#include "../include/Game.h"
 
 #include <string>
 
