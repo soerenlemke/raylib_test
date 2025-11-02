@@ -4,8 +4,10 @@
 
 #include "Ball.h"
 
-Ball::Ball(Vector2 pos, float radius, Vector2 vel)
-    : position(pos), velocity(vel), radius(radius) {
+Ball::Ball(Vector2 pos, float radius, Vector2 vel) {
+    this->position = pos;
+    this->radius = radius;
+    this->velocity = vel;
 }
 
 void Ball::Update(float dt) {

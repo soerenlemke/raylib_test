@@ -10,7 +10,9 @@ add_executable(raylib_test main.cpp
         include/Paddle.cpp
         include/Paddle.h
         include/Game.cpp
-        include/Game.h)
+        include/Game.h
+        include/Block.cpp
+        include/Block.h)
 
 if(raylib_FOUND)
     target_link_libraries(raylib_test PRIVATE raylib)

@@ -9,7 +9,7 @@
 
 class Ball {
 public:
-    Ball(Vector2 pos, float radius = 10.0f, Vector2 vel = { 200.0f, -200.0f});
+    explicit Ball(Vector2 pos, float radius = 10.0f, Vector2 vel = { 200.0f, -200.0f});
 
     void Update(float dt);
 
@@ -23,8 +23,8 @@ public:
     float GetRadius() const { return radius; }
 
 private:
-    Vector2 position;
-    Vector2 velocity;
+    Vector2 position{};
+    Vector2 velocity{};
     float radius;
 };
 
