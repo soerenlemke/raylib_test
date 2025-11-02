@@ -4,7 +4,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(raylib QUIET)
 
-add_executable(raylib_test main.cpp)
+add_executable(raylib_test main.cpp
+        include/Ball.cpp
+        include/Ball.h
+        include/Paddle.cpp
+        include/Paddle.h
+        include/Game.cpp
+        include/Game.h)
 
 if(raylib_FOUND)
     target_link_libraries(raylib_test PRIVATE raylib)
