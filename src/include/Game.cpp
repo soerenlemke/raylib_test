@@ -86,10 +86,11 @@ void Game::Draw() {
 void Game::DrawBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing) const {
     const auto totalWidth = static_cast<float>(cols * blockWidth + (cols - 1) * spacing);
     const auto startX = (static_cast<float>(screenWidth) - totalWidth) * 0.5f;
-    const auto startY = static_cast<float>(spacing);
 
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
+            constexpr auto startY = 50.0f;
+
             Block block(
                 {
                     startX + static_cast<float>(col * (blockWidth + spacing)),
