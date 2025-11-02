@@ -8,8 +8,8 @@ int main() {
     InitWindow(screenWidth, screenHeight, "raylib-test");
 
     Vector2 ballPosition = {
-        (float)screenWidth/2,
-        (float)screenHeight/2
+        static_cast<float>(screenWidth)/2,
+        static_cast<float>(screenHeight)/2
     };
 
     SetTargetFPS(60);
