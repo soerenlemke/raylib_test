@@ -9,7 +9,16 @@ Block::Block(Vector2 pos, int w, int h)
 }
 
 void Block::Draw(Color color) const {
+    if (!alive) return;
+    DrawRectangleV(
+        position,
+        {
+            static_cast<float>(width),
+            static_cast<float>(height)
+        }, color
+    );
 }
 
 void Block::Destroy() {
+    alive = false;
 }

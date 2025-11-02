@@ -19,6 +19,8 @@ private:
 
     void Draw();
 
+    void DrawBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing) const;
+
     int screenWidth;
     int screenHeight;
     Paddle paddle;

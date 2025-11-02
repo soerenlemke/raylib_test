@@ -6,6 +6,8 @@
 
 #include <string>
 
+#include "Block.h"
+
 Game::Game(int screenWidth, int screenHeight)
     : screenWidth(screenWidth),
       screenHeight(screenHeight),
@@ -77,4 +79,26 @@ void Game::Draw() {
 
     ball.Draw(RED);
     paddle.Draw(GRAY);
+
+    DrawBlocks(5, 10, 70, 25, 5);
+}
+
+void Game::DrawBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing) const {
+    const auto totalWidth = static_cast<float>(cols * blockWidth + (cols - 1) * spacing);
+    const auto startX = (static_cast<float>(screenWidth) - totalWidth) * 0.5f;
+    const auto startY = static_cast<float>(spacing);
+
+    for (int row = 0; row < rows; ++row) {
+        for (int col = 0; col < cols; ++col) {
+            Block block(
+                {
+                    startX + static_cast<float>(col * (blockWidth + spacing)),
+                    startY + static_cast<float>(row * (blockHeight + spacing))
+                },
+                blockWidth,
+                blockHeight
+            );
+            block.Draw(BLUE);
+        }
+    }
 }
