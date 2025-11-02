@@ -4,7 +4,7 @@
 
 #include "Ball.h"
 
-Ball::Ball(float radius, Vector2 pos, Vector2 vel)
+Ball::Ball(Vector2 pos, float radius, Vector2 vel)
     : position(pos), velocity(vel), radius(radius) {
 }
 

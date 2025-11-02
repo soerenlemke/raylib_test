@@ -4,7 +4,7 @@
 
 #include "Paddle.h"
 
-Paddle::Paddle(int w, int h, Vector2 pos, float speed)
+Paddle::Paddle(Vector2 pos, int w, int h, float speed)
     : position(pos), width(w), height(h), speed(speed) {
 }
 

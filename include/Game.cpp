@@ -4,11 +4,13 @@
 
 #include "Game.h"
 
+#include <string>
+
 Game::Game(int screenWidth, int screenHeight)
     : screenWidth(screenWidth),
       screenHeight(screenHeight),
-      paddle(100, 20, {static_cast<float>(screenWidth) / 2 - 50, static_cast<float>(screenHeight) - 30}),
-      ball(10.0f, {static_cast<float>(screenWidth) / 2, static_cast<float>(screenHeight) / 2}, {200.0f, -200.0f}) {
+      paddle({static_cast<float>(screenWidth) / 2 - 50, static_cast<float>(screenHeight) - 30}),
+      ball({static_cast<float>(screenWidth) / 2, static_cast<float>(screenHeight) / 2}) {
 }
 
 int Game::Run() {
@@ -62,7 +64,7 @@ void Game::Update(float dt) {
         ball.Reset(p, v);
     }
 
-    // reset if fell below screen
+    // reset if ball fell below screen
     if (ball.GetPosition().y - ball.GetRadius() > static_cast<float>(screenHeight)) {
         ball.Reset(Vector2{static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f},
                    Vector2{200.0f, 200.0f});
@@ -71,6 +73,8 @@ void Game::Update(float dt) {
 
 void Game::Draw() {
     ClearBackground(RAYWHITE);
+    DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 10, 10, 20, DARKGRAY);
+
     ball.Draw(RED);
     paddle.Draw(GRAY);
 }

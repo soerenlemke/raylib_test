@@ -9,7 +9,7 @@
 
 class Ball {
 public:
-    Ball(float radius, Vector2 pos, Vector2 vel);
+    Ball(Vector2 pos, float radius = 10.0f, Vector2 vel = { 200.0f, -200.0f});
 
     void Update(float dt);
 
