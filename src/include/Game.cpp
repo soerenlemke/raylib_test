@@ -89,10 +89,10 @@ void Game::BuildBlocks(int rows, int cols, int blockWidth, int blockHeight, int 
     blocks.clear();
     const auto totalWidth = static_cast<float>(cols * blockWidth + (cols - 1) * spacing);
     const auto startX = (static_cast<float>(screenWidth) - totalWidth) * 0.5f;
-    constexpr auto startY = 50.0f;
 
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
+            constexpr auto startY = 50.0f;
             blocks.emplace_back(
                 Vector2{
                     startX + static_cast<float>(col * (blockWidth + spacing)),
