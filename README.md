@@ -1,5 +1,7 @@
 TODOs:
+
+basics:
 - [x] save block positions in game for checking collisions
-- [ ] block should make the ball bounce off
-- [ ] delete blocks when hit
+- [x] block should make the ball bounce off
+- [x] delete blocks when hit
 - [ ] random starting direction downwards for the ball

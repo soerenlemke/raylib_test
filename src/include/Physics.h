@@ -13,7 +13,7 @@ class Ball;
 
 class Physics {
 public:
-    void Update(Ball &ball, const Paddle &paddle, std::vector<Block> &blocks, int screenWidth, int screenHeight);
+    static void Update(Ball &ball, const Paddle &paddle, std::vector<Block> &blocks, int screenWidth, int screenHeight);
 
 
 private:
