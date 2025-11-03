@@ -9,6 +9,7 @@
 #include "Ball.h"
 #include "Block.h"
 #include "Paddle.h"
+#include "Physics.h"
 
 
 class Game {
@@ -19,14 +20,6 @@ public:
 
 private:
     void Update(float dt);
-
-    void CheckCollisions();
-
-    void CheckBallCollisionsWithWalls();
-
-    void CheckBallCollisionsWithPaddle();
-
-    void CheckBallOffscreen();
 
     void Draw() const;
 
@@ -39,6 +32,7 @@ private:
     Paddle paddle;
     Ball ball;
     std::vector<Block> blocks;
+    Physics physics;
 };
 
 

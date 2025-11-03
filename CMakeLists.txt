@@ -12,7 +12,9 @@ add_executable(raylib_test src/main.cpp
         src/include/Game.cpp
         src/include/Game.h
         src/include/Block.cpp
-        src/include/Block.h)
+        src/include/Block.h
+        src/include/Physics.cpp
+        src/include/Physics.h)
 
 if(raylib_FOUND)
     target_link_libraries(raylib_test PRIVATE raylib)

@@ -8,7 +8,7 @@
 
 #include "Block.h"
 
-Game::Game(int screenWidth, int screenHeight)
+Game::Game(const int screenWidth, const int screenHeight)
     : screenWidth(screenWidth),
       screenHeight(screenHeight),
       paddle({static_cast<float>(screenWidth) / 2 - 50.0f, static_cast<float>(screenHeight) - 30.0f}),
@@ -22,7 +22,7 @@ int Game::Run() {
     BuildBlocks(5, 10, 70, 25, 5);
 
     while (!WindowShouldClose()) {
-        float dt = GetFrameTime();
+        const float dt = GetFrameTime();
         Update(dt);
 
         BeginDrawing();
@@ -34,57 +34,13 @@ int Game::Run() {
     return 0;
 }
 
-void Game::Update(float dt) {
+void Game::Update(const float dt) {
     paddle.Update(dt, screenWidth);
     ball.Update(dt);
 
-    CheckCollisions();
-    CheckBallOffscreen();
+    physics.Update(ball, paddle, blocks, screenWidth, screenHeight);
 }
 
-void Game::CheckCollisions() {
-    CheckBallCollisionsWithWalls();
-    CheckBallCollisionsWithPaddle();
-}
-
-void Game::CheckBallCollisionsWithWalls() {
-    if (ball.GetPosition().x - ball.GetRadius() <= 0) {
-        Vector2 p = ball.GetPosition();
-        p.x = ball.GetRadius();
-        ball.Reset(p, Vector2{-ball.GetVelocity().x, ball.GetVelocity().y});
-    } else if (ball.GetPosition().x + ball.GetRadius() >= static_cast<float>(screenWidth)) {
-        Vector2 p = ball.GetPosition();
-        p.x = static_cast<float>(screenWidth) - ball.GetRadius();
-        ball.Reset(p, Vector2{-ball.GetVelocity().x, ball.GetVelocity().y});
-    }
-    if (ball.GetPosition().y - ball.GetRadius() <= 0) {
-        Vector2 p = ball.GetPosition();
-        p.y = ball.GetRadius();
-        ball.Reset(p, Vector2{ball.GetVelocity().x, -ball.GetVelocity().y});
-    }
-}
-
-void Game::CheckBallCollisionsWithPaddle() {
-    Rectangle pad = paddle.GetRect();
-    if (CheckCollisionCircleRec(ball.GetPosition(), ball.GetRadius(), pad) && ball.GetVelocity().y > 0) {
-        Vector2 p = ball.GetPosition();
-        p.y = pad.y - ball.GetRadius();
-        Vector2 v = ball.GetVelocity();
-        v.y *= -1;
-
-        float hitNorm = ((p.x - (pad.x + pad.width * 0.5f)) / (pad.width * 0.5f));
-        v.x += hitNorm * 200.0f; // increase lateral velocity based on hit position
-
-        ball.Reset(p, v);
-    }
-}
-
-void Game::CheckBallOffscreen() {
-    if (ball.GetPosition().y - ball.GetRadius() > static_cast<float>(screenHeight)) {
-        ball.Reset(Vector2{static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f},
-                   Vector2{200.0f, 200.0f});
-    }
-}
 
 void Game::Draw() const {
     ClearBackground(RAYWHITE);
