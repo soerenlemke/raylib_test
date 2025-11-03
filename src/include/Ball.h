@@ -9,7 +9,7 @@
 
 class Ball {
 public:
-    explicit Ball(Vector2 pos, float radius = 10.0f, Vector2 vel = { 200.0f, -200.0f});
+    explicit Ball(Vector2 pos, float radius = 10.0f, Vector2 vel = {200.0f, -200.0f});
 
     void Update(float dt);
 
@@ -29,4 +29,4 @@ private:
 };
 
 
-#endif //RAYLIB_TEST_BALL_H
+#endif // RAYLIB_TEST_BALL_H

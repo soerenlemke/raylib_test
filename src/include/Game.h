@@ -36,4 +36,4 @@ private:
 };
 
 
-#endif //RAYLIB_TEST_GAME_H
+#endif // RAYLIB_TEST_GAME_H

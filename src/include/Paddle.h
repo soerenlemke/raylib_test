@@ -25,4 +25,4 @@ private:
 };
 
 
-#endif //RAYLIB_TEST_PADDLE_H
+#endif // RAYLIB_TEST_PADDLE_H

@@ -8,12 +8,10 @@
 
 #include "Block.h"
 
-Game::Game(const int screenWidth, const int screenHeight)
-    : screenWidth(screenWidth),
-      screenHeight(screenHeight),
-      paddle({static_cast<float>(screenWidth) / 2 - 50.0f, static_cast<float>(screenHeight) - 30.0f}),
-      ball({static_cast<float>(screenWidth) / 2, static_cast<float>(screenHeight) / 2}) {
-}
+Game::Game(const int screenWidth, const int screenHeight) :
+    screenWidth(screenWidth), screenHeight(screenHeight),
+    paddle({static_cast<float>(screenWidth) / 2 - 50.0f, static_cast<float>(screenHeight) - 30.0f}),
+    ball({static_cast<float>(screenWidth) / 2, static_cast<float>(screenHeight) / 2}) {}
 
 int Game::Run() {
     InitWindow(screenWidth, screenHeight, "raylib-test");
@@ -60,20 +58,16 @@ void Game::BuildBlocks(int rows, int cols, int blockWidth, int blockHeight, int 
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
             constexpr auto startY = 50.0f;
-            blocks.emplace_back(
-                Vector2{
-                    startX + static_cast<float>(col * (blockWidth + spacing)),
-                    startY + static_cast<float>(row * (blockHeight + spacing))
-                },
-                blockWidth,
-                blockHeight
-            );
+            blocks.emplace_back(Vector2{startX + static_cast<float>(col * (blockWidth + spacing)),
+                                        startY + static_cast<float>(row * (blockHeight + spacing))},
+                                blockWidth, blockHeight);
         }
     }
 }
 
 void Game::DrawBlocks() const {
     for (const auto &block: blocks) {
-        if (block.IsAlive()) block.Draw(BLUE);
+        if (block.IsAlive())
+            block.Draw(BLUE);
     }
 }

@@ -22,4 +22,4 @@ private:
 };
 
 
-#endif //RAYLIB_TEST_BLOCK_H
+#endif // RAYLIB_TEST_BLOCK_H
