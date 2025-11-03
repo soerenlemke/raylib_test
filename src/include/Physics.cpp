@@ -4,9 +4,12 @@
 
 #include "Physics.h"
 
+#include <algorithm>
+#include <cmath>
 #include <raylib.h>
 
 #include "Ball.h"
+#include "Block.h"
 #include "Paddle.h"
 
 void Physics::Update(Ball &ball, const Paddle &paddle, std::vector<Block> &blocks, const int screenWidth,
@@ -15,6 +18,7 @@ void Physics::Update(Ball &ball, const Paddle &paddle, std::vector<Block> &block
     CheckBallCollisionsWithPaddle(ball, paddle);
     CheckBallCollisionsWithBlocks(ball, blocks);
     CheckBallOffscreen(ball, screenWidth, screenHeight);
+    ClearDeadBlocks(blocks);
 }
 
 void Physics::CheckBallCollisionsWithWalls(Ball &ball, const int screenWidth) {
@@ -50,7 +54,50 @@ void Physics::CheckBallCollisionsWithPaddle(Ball &ball, const Paddle &paddle) {
 }
 
 void Physics::CheckBallCollisionsWithBlocks(Ball &ball, std::vector<Block> &blocks) {
-    // TODO: implement
+    for (auto &block : blocks) {
+        Rectangle rect = block.GetRect();
+        if (!CheckCollisionCircleRec(ball.GetPosition(), ball.GetRadius(), rect)) continue;
+
+        Vector2 ballPosition = ball.GetPosition();
+
+        const float closestX = std::clamp(ballPosition.x, rect.x, rect.x + rect.width);
+        const float closestY = std::clamp(ballPosition.y, rect.y, rect.y + rect.height);
+        const Vector2 closest{ closestX, closestY };
+
+        Vector2 diff{ ballPosition.x - closest.x, ballPosition.y - closest.y };
+
+        // If the circle center lies exactly inside the rectangle (edge case), determine direction to the nearest edge
+        if (diff.x == 0.0f && diff.y == 0.0f) {
+            float left = ballPosition.x - rect.x;
+            float right = rect.x + rect.width - ballPosition.x;
+            float top = ballPosition.y - rect.y;
+            float bottom = rect.y + rect.height - ballPosition.y;
+            float minDist = std::min(std::min(left, right), std::min(top, bottom));
+            if (minDist == left) diff = { -1.0f, 0.0f };
+            else if (minDist == right) diff = { 1.0f, 0.0f };
+            else if (minDist == top) diff = { 0.0f, -1.0f };
+            else diff = { 0.0f, 1.0f };
+        }
+
+        Vector2 v = ball.GetVelocity();
+
+        // Decide whether collision is horizontal or vertical (smaller penetration -> choose axis)
+        if (std::fabs(diff.x) > std::fabs(diff.y)) {
+            // horizontal collision: invert X component and place ball outside the block
+            v.x = -v.x;
+            if (diff.x > 0) ballPosition.x = closest.x + ball.GetRadius();
+            else ballPosition.x = closest.x - ball.GetRadius();
+        } else {
+            // vertical collision: invert Y component and place ball outside the block
+            v.y = -v.y;
+            if (diff.y > 0) ballPosition.y = closest.y + ball.GetRadius();
+            else ballPosition.y = closest.y - ball.GetRadius();
+        }
+
+        ball.Reset(ballPosition, v);
+
+        block.Destroy();
+    }
 }
 
 void Physics::CheckBallOffscreen(Ball &ball, const int screenWidth, const int screenHeight) {
@@ -58,4 +105,8 @@ void Physics::CheckBallOffscreen(Ball &ball, const int screenWidth, const int sc
         ball.Reset(Vector2{static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f},
                    Vector2{200.0f, 200.0f});
     }
+}
+
+void Physics::ClearDeadBlocks(std::vector<Block> &blocks) {
+    std::erase_if(blocks, [](const Block &block) { return !block.IsAlive(); });
 }

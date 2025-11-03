@@ -19,8 +19,9 @@ public:
 private:
     static void CheckBallCollisionsWithWalls(Ball &ball, int screenWidth);
     static void CheckBallCollisionsWithPaddle(Ball &ball, const Paddle &paddle);
-    void CheckBallCollisionsWithBlocks(Ball &ball, std::vector<Block> &blocks);
+    static void CheckBallCollisionsWithBlocks(Ball &ball, std::vector<Block> &blocks);
     static void CheckBallOffscreen(Ball &ball, int screenWidth, int screenHeight);
+    static void ClearDeadBlocks(std::vector<Block> &blocks);
 };
 
 

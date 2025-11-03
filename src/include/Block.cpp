@@ -13,3 +13,7 @@ void Block::Draw(Color color) const {
 }
 
 void Block::Destroy() { alive = false; }
+
+Rectangle Block::GetRect() const {
+    return Rectangle(position.x, position.y, static_cast<float>(width), static_cast<float>(height));
+}

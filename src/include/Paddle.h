@@ -9,7 +9,7 @@
 
 class Paddle {
 public:
-    Paddle(Vector2 pos, int w = 100, int h = 20, float speed = 300.0f);
+    explicit Paddle(Vector2 pos, int w = 100, int h = 20, float speed = 300.0f);
 
     void Update(float dt, int screenWidth);
 

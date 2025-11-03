@@ -4,9 +4,9 @@
 
 #include "../include/Paddle.h"
 
-Paddle::Paddle(Vector2 pos, int w, int h, float speed) : position(pos), width(w), height(h), speed(speed) {}
+Paddle::Paddle(const Vector2 pos, const int w, const int h, const float speed) : position(pos), width(w), height(h), speed(speed) {}
 
-void Paddle::Update(float dt, int screenWidth) {
+void Paddle::Update(const float dt, const int screenWidth) {
     if (IsKeyDown(KEY_D))
         position.x += speed * dt;
     if (IsKeyDown(KEY_A))
@@ -14,11 +14,11 @@ void Paddle::Update(float dt, int screenWidth) {
     // Keep paddle within screen bounds
     if (position.x < 0)
         position.x = 0;
-    if (position.x > screenWidth - width)
-        position.x = screenWidth - width;
+    if (position.x > static_cast<float>(screenWidth - width))
+        position.x = static_cast<float>(screenWidth - width);
 }
 
-void Paddle::Draw(Color color) const {
+void Paddle::Draw(const Color color) const {
     DrawRectangleV(position, {static_cast<float>(width), static_cast<float>(height)}, color);
 }
 
