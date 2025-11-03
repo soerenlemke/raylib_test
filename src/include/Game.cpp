@@ -38,7 +38,16 @@ void Game::Update(float dt) {
     paddle.Update(dt, screenWidth);
     ball.Update(dt);
 
-    // wall collisions
+    CheckCollisions();
+    CheckBallOffscreen();
+}
+
+void Game::CheckCollisions() {
+    CheckBallCollisionsWithWalls();
+    CheckBallCollisionsWithPaddle();
+}
+
+void Game::CheckBallCollisionsWithWalls() {
     if (ball.GetPosition().x - ball.GetRadius() <= 0) {
         Vector2 p = ball.GetPosition();
         p.x = ball.GetRadius();
@@ -53,8 +62,9 @@ void Game::Update(float dt) {
         p.y = ball.GetRadius();
         ball.Reset(p, Vector2{ball.GetVelocity().x, -ball.GetVelocity().y});
     }
+}
 
-    // paddle collision (only if moving downward)
+void Game::CheckBallCollisionsWithPaddle() {
     Rectangle pad = paddle.GetRect();
     if (CheckCollisionCircleRec(ball.GetPosition(), ball.GetRadius(), pad) && ball.GetVelocity().y > 0) {
         Vector2 p = ball.GetPosition();
@@ -67,8 +77,9 @@ void Game::Update(float dt) {
 
         ball.Reset(p, v);
     }
+}
 
-    // reset if ball fell below screen
+void Game::CheckBallOffscreen() {
     if (ball.GetPosition().y - ball.GetRadius() > static_cast<float>(screenHeight)) {
         ball.Reset(Vector2{static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f},
                    Vector2{200.0f, 200.0f});

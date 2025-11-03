@@ -20,6 +20,14 @@ public:
 private:
     void Update(float dt);
 
+    void CheckCollisions();
+
+    void CheckBallCollisionsWithWalls();
+
+    void CheckBallCollisionsWithPaddle();
+
+    void CheckBallOffscreen();
+
     void Draw() const;
 
     void BuildBlocks(int rows, int cols, int blockWidth, int blockHeight, int spacing);
