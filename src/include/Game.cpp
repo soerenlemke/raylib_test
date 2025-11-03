@@ -4,6 +4,7 @@
 
 #include "../include/Game.h"
 
+#include <ctime>
 #include <string>
 
 #include "Block.h"
@@ -16,6 +17,7 @@ Game::Game(const int screenWidth, const int screenHeight) :
 int Game::Run() {
     InitWindow(screenWidth, screenHeight, "raylib-test");
     SetTargetFPS(120);
+    SetRandomSeed(static_cast<unsigned int>(time(nullptr)));
 
     BuildBlocks(5, 10, 70, 25, 5);
 
