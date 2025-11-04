@@ -8,9 +8,7 @@ basics:
 - [x] score manager
 - [ ] textures for blocks, paddle and ball
 - [ ] sound effects for hitting blocks and paddle (SoundManager?)
-- [ ] start screen
-- [ ] game over screen
-- [ ] win screen
+- [ ] start screen, game over screen, win screen (ScreenManager?)
 - [ ] levels with different block layouts (LevelManager or LevelLoader?)
 - [ ] power-ups (e.g., bigger paddle, multi-ball)
 - [ ] high score tracking (implement in ScoreManager -> save to file)
