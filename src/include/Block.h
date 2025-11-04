@@ -4,6 +4,7 @@
 
 #ifndef RAYLIB_TEST_BLOCK_H
 #define RAYLIB_TEST_BLOCK_H
+#include <functional>
 #include <raylib.h>
 
 
@@ -15,11 +16,14 @@ public:
     [[nodiscard]] bool IsAlive() const { return alive; }
     [[nodiscard]] Rectangle GetRect() const;
 
+    void SetOnDestroyed(std::function<void()> cb) { onDestroyed = std::move(cb); }
+
 private:
     Vector2 position{};
     int width;
     int height;
     bool alive{true};
+    std::function<void()> onDestroyed;
 };
 
 

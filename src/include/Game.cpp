@@ -20,6 +20,12 @@ int Game::Run() {
     SetRandomSeed(static_cast<unsigned int>(time(nullptr)));
 
     BuildBlocks(5, 10, 70, 25, 5);
+    numberOfStartingBlocks = static_cast<int>(blocks.size());
+
+    scoreManager.SetStartingCount(numberOfStartingBlocks);
+    for (auto &block: blocks) {
+        scoreManager.SubscribeToBlock(block);
+    }
 
     while (!WindowShouldClose()) {
         const float dt = GetFrameTime();
@@ -38,13 +44,13 @@ void Game::Update(const float dt) {
     paddle.Update(dt, screenWidth);
     ball.Update(dt);
 
-    physics.Update(ball, paddle, blocks, screenWidth, screenHeight);
+    Physics::Update(ball, paddle, blocks, screenWidth, screenHeight);
 }
-
 
 void Game::Draw() const {
     ClearBackground(RAYWHITE);
     DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 10, 10, 20, DARKGRAY);
+    DrawText(("Score: " + std::to_string(scoreManager.GetScore())).c_str(), screenWidth - 150, 10, 20, DARKGRAY);
 
     ball.Draw(RED);
     paddle.Draw(GRAY);

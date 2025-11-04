@@ -10,6 +10,7 @@
 #include "Block.h"
 #include "Paddle.h"
 #include "Physics.h"
+#include "ScoreManager.h"
 
 
 class Game {
@@ -29,10 +30,13 @@ private:
 
     int screenWidth;
     int screenHeight;
+    int numberOfStartingBlocks = 0;
+
     Paddle paddle;
     Ball ball;
     std::vector<Block> blocks;
     Physics physics;
+    ScoreManager scoreManager;
 };
 
 
