@@ -11,7 +11,7 @@ class ScoreManager {
 public:
     ScoreManager() = default;
 
-    void SetStartingCount(int count) { startingBlocks = count; }
+    void SetStartingCount(const int count) { startingBlocks = count; }
     void Reset() {
         startingBlocks = 0;
         score = 0;
