@@ -15,13 +15,13 @@ public:
 
     void Draw(Color color) const;
 
-    void Respawn(const Vector2 pos);
+    void Respawn(Vector2 pos);
 
-    Vector2 GetPosition() const { return position; }
-    Vector2 GetVelocity() const { return velocity; }
+    [[nodiscard]] Vector2 GetPosition() const { return position; }
+    [[nodiscard]] Vector2 GetVelocity() const { return velocity; }
     void SetVelocity(const Vector2 &v) { velocity = v; }
     void SetPosition(const Vector2 &p) { position = p; }
-    float GetRadius() const { return radius; }
+    [[nodiscard]] float GetRadius() const { return radius; }
 
 private:
     Vector2 position{};
